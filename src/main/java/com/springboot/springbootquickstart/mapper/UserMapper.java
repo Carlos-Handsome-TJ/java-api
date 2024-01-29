@@ -10,6 +10,6 @@ public interface UserMapper {
   User findByUserName(String username);
 
   @Select("insert into user(username, password, create_time, update_time)" +
-          " values (username, password, now(), now())")
-  void register(String username, String psd);
+          "values(username, password, now(), now())")
+  void register(String username, String password);
 }
