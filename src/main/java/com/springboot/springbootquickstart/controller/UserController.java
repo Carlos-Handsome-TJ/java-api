@@ -5,10 +5,12 @@ import com.springboot.springbootquickstart.pojo.User;
 import com.springboot.springbootquickstart.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Validated
 @RestController
 @RequestMapping("/user")
 public class UserController {
