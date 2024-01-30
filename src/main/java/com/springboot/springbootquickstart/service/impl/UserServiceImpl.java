@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void register(String username, String password) {
-    String psd = Md5Util.getMD5String(password);
-    userMapper.register(username, psd);
+    String psw = Md5Util.getMD5String(password);
+    userMapper.register(username, psw);
   }
 }

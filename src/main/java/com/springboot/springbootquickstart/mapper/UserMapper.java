@@ -6,10 +6,9 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
-  @Select("select * from user where username=#{username};")
+  @Select("SELECT * FROM user WHERE username=#{username}")
   User findByUserName(String username);
 
-  @Select("insert into user(username, password, create_time, update_time)" +
-          "values(username, password, now(), now())")
+  @Select("INSERT INTO user(username, password, create_time, update_time)" + "VALUES (#{username}, #{password}, now(), now())")
   void register(String username, String password);
 }
