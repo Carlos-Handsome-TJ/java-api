@@ -5,7 +5,9 @@ import com.springboot.springbootquickstart.pojo.User;
 import com.springboot.springbootquickstart.service.UserService;
 import com.springboot.springbootquickstart.utils.JwtUtil;
 import com.springboot.springbootquickstart.utils.Md5Util;
+import com.springboot.springbootquickstart.utils.ThreadLocalUtil;
 import jakarta.annotation.Resource;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.validation.annotation.Validated;
@@ -24,16 +26,19 @@ public class UserController {
   /**
    * 用户信息
    *
-   * @param token
+   * @param
    * @return
    */
   @GetMapping("/userInfo")
   @ResponseBody
-  public Result<User> userInfo(@RequestHeader(name = "Authorization") String token) {
-    Map<String, Object> map = JwtUtil.parseToken(token);
+  public Result<User> userInfo() {
+    Map<String, Object> map = ThreadLocalUtil.get();
     String username = (String) map.get("username");
     User user = userService.findByUserName(username);
-    return Result.success(user);
+    if (user != null) {
+      return Result.success(user);
+    }
+    return Result.error("用户不存在");
   }
 
   /**
@@ -44,7 +49,7 @@ public class UserController {
    */
   @RequestMapping("/findByUserName")
   @ResponseBody
-  public Result findByUserName(@NotNull String username) {
+  public Result findByUserName(@NotEmpty String username) {
     User user = userService.findByUserName(username);
     if (user != null) {
       return Result.success(user);
@@ -55,14 +60,12 @@ public class UserController {
   /**
    * 更新用户基本信息
    *
-   * @param id
-   * @param username
-   * @param password
-   * @param email
+   * @param user
    * @return
    */
   @PutMapping("/update")
-  public Result update(Integer id, String username, String password, String email) {
+  public Result update(@RequestBody @Validated User user) {
+    userService.update(user);
     return Result.success();
   }
 
