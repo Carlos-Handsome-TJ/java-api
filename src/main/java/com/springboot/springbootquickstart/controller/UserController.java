@@ -21,7 +21,14 @@ public class UserController {
   @Resource
   private UserService userService;
 
+  /**
+   * 用户信息
+   *
+   * @param token
+   * @return
+   */
   @GetMapping("/userInfo")
+  @ResponseBody
   public Result<User> userInfo(@RequestHeader(name = "Authorization") String token) {
     Map<String, Object> map = JwtUtil.parseToken(token);
     String username = (String) map.get("username");
@@ -29,6 +36,12 @@ public class UserController {
     return Result.success(user);
   }
 
+  /**
+   * 根据用户名查询用户信息
+   *
+   * @param username
+   * @return
+   */
   @RequestMapping("/findByUserName")
   @ResponseBody
   public Result findByUserName(@NotNull String username) {
@@ -39,6 +52,27 @@ public class UserController {
     return Result.error("用户不存在");
   }
 
+  /**
+   * 更新用户基本信息
+   *
+   * @param id
+   * @param username
+   * @param password
+   * @param email
+   * @return
+   */
+  @PutMapping("/update")
+  public Result update(Integer id, String username, String password, String email) {
+    return Result.success();
+  }
+
+  /**
+   * 注册
+   *
+   * @param username
+   * @param password
+   * @return
+   */
   @PostMapping("/register")
   @ResponseBody
   public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
@@ -57,6 +91,13 @@ public class UserController {
     return Result.error("用户名已被占用");
   }
 
+  /**
+   * 登录
+   *
+   * @param username
+   * @param password
+   * @return
+   */
   @PostMapping("/login")
   @ResponseBody
   public Result login(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
