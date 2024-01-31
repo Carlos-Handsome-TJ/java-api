@@ -82,11 +82,7 @@ public class UserController {
       userService.register(username, password);
       // 生成token
       User sqlUser = userService.findByUserName(username);
-      Map<String, Object> claims = new HashMap<>();
-      claims.put("id", sqlUser.getId());
-      claims.put("username", sqlUser.getUsername());
-      String token = JwtUtil.genToken(claims);
-      return Result.success(token);
+      return getResult(sqlUser);
     }
     return Result.error("用户名已被占用");
   }
@@ -109,12 +105,20 @@ public class UserController {
     String sqlPsd = user.getPassword();
     if (userPsd.equals(sqlPsd)) {
       // 生成令牌
-      Map<String, Object> claims = new HashMap<>();
-      claims.put("id", user.getId());
-      claims.put("username", user.getUsername());
-      String token = JwtUtil.genToken(claims);
-      return Result.success(token);
+      return getResult(user);
     }
     return Result.error("密码错误");
+  }
+
+  @org.jetbrains.annotations.NotNull
+  private Result getResult(User user) {
+    Map<String, Object> claims = new HashMap<>();
+    Map<String, Object> userInfo = new HashMap<>();
+    claims.put("id", user.getId());
+    claims.put("username", user.getUsername());
+    String token = JwtUtil.genToken(claims);
+    userInfo.put("userInfo", user);
+    userInfo.put("token", token);
+    return Result.success(userInfo);
   }
 }
