@@ -1,10 +1,8 @@
 package com.springboot.springbootquickstart.intercepters;
 
-import com.springboot.springbootquickstart.pojo.Result;
 import com.springboot.springbootquickstart.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
