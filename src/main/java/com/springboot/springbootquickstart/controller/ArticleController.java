@@ -1,13 +1,9 @@
 package com.springboot.springbootquickstart.controller;
 
 import com.springboot.springbootquickstart.pojo.Result;
-import com.springboot.springbootquickstart.utils.JwtUtil;
-import jakarta.servlet.http.HttpServletResponse;
-import org.apache.coyote.Request;
-import org.apache.coyote.Response;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
 @RestController
 @RequestMapping("/article")
@@ -20,14 +16,8 @@ public class ArticleController {
 
   @PostMapping("/list")
   @ResponseBody
-  public Result<String> list(@RequestHeader(name = "Authorization") String token, HttpServletResponse response) {
+  public Result<String> list(@NotNull Integer pageNum, @NotNull Integer pageSize) {
     // 验证token
-    try {
-      Map<String, Object> claims = JwtUtil.parseToken(token);
-      return Result.success("文章获取成功");
-    } catch (Exception e) {
-      response.setStatus(401);
-      return Result.error("未登录");
-    }
+    return Result.success("文章获取成功");
   }
 }

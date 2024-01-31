@@ -1,8 +1,10 @@
 package com.springboot.springbootquickstart.intercepters;
 
+import com.springboot.springbootquickstart.pojo.Result;
 import com.springboot.springbootquickstart.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -19,10 +21,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     String token = request.getHeader("Authorization");
     try {
       Map<String, Object> claims = JwtUtil.parseToken(token);
+      return true;
     } catch (Exception e) {
       response.setStatus(401);
       return false;
     }
-    return true;
   }
 }
