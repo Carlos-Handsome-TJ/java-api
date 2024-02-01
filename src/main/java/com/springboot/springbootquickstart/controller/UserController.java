@@ -92,18 +92,16 @@ public class UserController {
     User user = userService.findByUserName(username);
     String old_pwd = (String) params.get("oldPwd");
     String new_pwd = (String) params.get("newPwd");
-    String re_pwd = (String) params.get("re_Pwd");
-
-    System.out.println(params);
-//    if (!user.getPassword().equals(Md5Util.getMD5String())) {
-//      return Result.error("密码错误");
-//    }
-//    // 验证密码是否正确
-//    if (newPwd.equals(rePwd)) {
-//      // 前端校验新密码和二次输入密码是否一致
-//      return Result.error("两次密码不一致");
-//    }
-//    userService.updatePwd(id, newPwd);
+    String re_pwd = (String) params.get("rePwd");
+    if (!user.getPassword().equals(Md5Util.getMD5String(old_pwd))) {
+      return Result.error("密码错误");
+    }
+    // 验证密码是否正确
+    if (!re_pwd.equals(new_pwd)) {
+      // 前端校验新密码和二次输入密码是否一致
+      return Result.error("两次密码不一致");
+    }
+    userService.updatePwd(id, new_pwd);
     return Result.success();
   }
 
