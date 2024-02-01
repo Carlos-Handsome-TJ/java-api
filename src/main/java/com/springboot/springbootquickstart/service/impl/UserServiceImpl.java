@@ -28,4 +28,12 @@ public class UserServiceImpl implements UserService {
   public void update(User user) {
     userMapper.update(user);
   }
+  @Override
+  public void updateAvatar(String avatarUrl, Integer id) {
+    userMapper.updateAvatar(avatarUrl, id);
+  }
+  @Override
+  public void updatePwd(Integer id, String newPwd) {
+    userMapper.updatePwd(id, newPwd);
+  }
 }

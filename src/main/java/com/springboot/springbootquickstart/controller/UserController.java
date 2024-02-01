@@ -8,8 +8,9 @@ import com.springboot.springbootquickstart.utils.Md5Util;
 import com.springboot.springbootquickstart.utils.ThreadLocalUtil;
 import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.URL;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,6 +67,43 @@ public class UserController {
   @PutMapping("/update")
   public Result update(@RequestBody @Validated User user) {
     userService.update(user);
+    return Result.success();
+  }
+
+  /**
+   * 更新用户头像
+   *
+   * @param avatarUrl
+   * @return
+   */
+  @PatchMapping("/updateAvatar")
+  public Result updateAvatar(@URL String avatarUrl) {
+    Map<String, Object> map = ThreadLocalUtil.get();
+    Integer id = (Integer) map.get("id");
+    userService.updateAvatar(avatarUrl, id);
+    return Result.success();
+  }
+
+  @PatchMapping("/updatePwd")
+  public Result updatePwd(@RequestBody Map<String, Object> params) {
+    Map<String, Object> map = ThreadLocalUtil.get();
+    Integer id = (Integer) map.get("id");
+    String username = (String) map.get("username");
+    User user = userService.findByUserName(username);
+    String old_pwd = (String) params.get("oldPwd");
+    String new_pwd = (String) params.get("newPwd");
+    String re_pwd = (String) params.get("re_Pwd");
+
+    System.out.println(params);
+//    if (!user.getPassword().equals(Md5Util.getMD5String())) {
+//      return Result.error("密码错误");
+//    }
+//    // 验证密码是否正确
+//    if (newPwd.equals(rePwd)) {
+//      // 前端校验新密码和二次输入密码是否一致
+//      return Result.error("两次密码不一致");
+//    }
+//    userService.updatePwd(id, newPwd);
     return Result.success();
   }
 
