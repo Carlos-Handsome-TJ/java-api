@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 // Category实体类
 @Data
 public class Category {
+  @NotEmpty(message = "id不能为空")
   private Integer id;
   @NotEmpty(message = "分类名不能为空")
   private String categoryName;

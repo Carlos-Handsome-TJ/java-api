@@ -16,6 +16,12 @@ public class CategoryServiceImpl implements CategoryService {
   private CategoryMapper categoryMapper;
 
   @Override
+  public Category findCategoryById(Integer id) {
+    Category category = categoryMapper.findCategoryById(id);
+    return category;
+  }
+
+  @Override
   public void add(Integer id, String categoryName, String categoryAlia) {
     categoryMapper.add(id, categoryName, categoryAlia);
   }
@@ -28,9 +34,15 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public List<Category> list() {
-    Map<String, Object> map =ThreadLocalUtil.get();
+    // 需要增加分页功能
+    Map<String, Object> map = ThreadLocalUtil.get();
     Integer id = (Integer) map.get("id");
     List<Category> list = categoryMapper.list(id);
     return list;
+  }
+
+  @Override
+  public void update(Integer id, String categoryName, String categoryAlias) {
+    categoryMapper.update(id, categoryName, categoryAlias);
   }
 }

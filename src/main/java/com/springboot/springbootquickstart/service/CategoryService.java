@@ -11,4 +11,8 @@ public interface CategoryService {
   void add(Integer id, String categoryName, String categoryAlia);
 
   Category findByCategoryName(String categoryName);
+
+  void update(Integer id, String categoryName, String categoryAlias);
+
+  Category findCategoryById(Integer id);
 }
