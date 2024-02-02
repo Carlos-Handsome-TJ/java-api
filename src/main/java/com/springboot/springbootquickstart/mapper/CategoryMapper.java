@@ -1,10 +1,7 @@
 package com.springboot.springbootquickstart.mapper;
 
 import com.springboot.springbootquickstart.pojo.Category;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,4 +22,6 @@ public interface CategoryMapper {
 
   @Select("SELECT * from category WHERE id=#{id}")
   Category findCategoryById(Integer id);
+  @Delete("Delete category WHERE id=#{id}")
+  void delete(Integer id);
 }

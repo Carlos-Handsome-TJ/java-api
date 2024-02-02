@@ -24,9 +24,12 @@ public class CategoryController {
    * @return
    */
   @GetMapping("/findCategoryById")
-  public Category findCategoryById(Integer id) {
+  public Result findCategoryById(Integer id) {
     Category category = categoryService.findCategoryById(id);
-    return category;
+    if (category != null) {
+      return Result.success(category);
+    }
+    return Result.error("当前分类不存在");
   }
 
   /**
@@ -61,7 +64,17 @@ public class CategoryController {
     categoryService.add(id, categoryName, categoryAlias);
     return Result.success();
   }
-
+  @DeleteMapping("/delete")
+  public Result delete(Integer id) {
+    categoryService.delete(id);
+    return Result.success();
+  }
+  /**
+   * 更新分类信息
+   *
+   * @param params
+   * @return
+   */
   @PutMapping("/update")
   public Result update(@RequestBody @Validated Map<String, Object> params) {
     Integer id = (Integer) params.get("id");
