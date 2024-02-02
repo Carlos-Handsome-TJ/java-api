@@ -1,5 +1,6 @@
 package com.springboot.springbootquickstart.pojo;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -8,7 +9,9 @@ import java.time.LocalDateTime;
 @Data
 public class Category {
   private Integer id;
+  @NotEmpty(message = "分类名不能为空")
   private String categoryName;
+  @NotEmpty(message = "分类别名不能为空")
   private String categoryAlia;
   private Integer createUser;
   private LocalDateTime createTime;
