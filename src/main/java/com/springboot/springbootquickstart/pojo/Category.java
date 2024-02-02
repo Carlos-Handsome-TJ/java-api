@@ -12,7 +12,7 @@ public class Category {
   @NotEmpty(message = "分类名不能为空")
   private String categoryName;
   @NotEmpty(message = "分类别名不能为空")
-  private String categoryAlia;
+  private String categoryAlias;
   private Integer createUser;
   private LocalDateTime createTime;
   private LocalDateTime updateTime;

@@ -5,8 +5,10 @@ import com.springboot.springbootquickstart.pojo.Result;
 import com.springboot.springbootquickstart.service.CategoryService;
 import com.springboot.springbootquickstart.utils.ThreadLocalUtil;
 import jakarta.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -15,16 +17,28 @@ public class CategoryController {
   @Resource
   private CategoryService categoryService;
 
+  /**
+   * 查询文章分类
+   *
+   * @param categoryName
+   * @return
+   */
   @GetMapping("/findByCategoryName")
   public Category findByCategoryName(String categoryName) {
     Category categoryItem = categoryService.findByCategoryName(categoryName);
     return categoryItem;
   }
 
+  /**
+   * 添加文章分类接口
+   *
+   * @param category
+   * @return
+   */
   @PostMapping("/add")
-  public Result add(@RequestBody Map<String, Object> params) {
-    String categoryName = (String) params.get("categoryName");
-    String categoryAlia = (String) params.get("categoryAlia");
+  public Result add(@RequestBody @Validated Category category) {
+    String categoryName = category.getCategoryName();
+    String categoryAlias = category.getCategoryAlias();
     // 校验分类是否已存在
     Category categoryItem = categoryService.findByCategoryName(categoryName);
     if (categoryItem != null) {
@@ -32,7 +46,19 @@ public class CategoryController {
     }
     Map<String, Object> map = ThreadLocalUtil.get();
     Integer id = (Integer) map.get("id");
-    categoryService.add(id, categoryName, categoryAlia);
+    categoryService.add(id, categoryName, categoryAlias);
     return Result.success();
+  }
+
+  @PutMapping("/update")
+  public Result update(@RequestBody Map<String, Object> params) {
+    return Result.success();
+  }
+
+  @GetMapping("/list")
+  public Result<List<Category>> list() {
+    List<Category> list = categoryService.list();
+    // 分页参数
+    return Result.success(list);
   }
 }
