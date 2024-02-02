@@ -1,5 +1,6 @@
 package com.springboot.springbootquickstart.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -21,7 +22,9 @@ public class User {
   @Email
   private String email;
   private String userPic;
+  @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
   private LocalDateTime createTime;
+  @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
   private LocalDateTime updateTime;
 
 }
