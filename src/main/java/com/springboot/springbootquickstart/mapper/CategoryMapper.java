@@ -20,8 +20,8 @@ public interface CategoryMapper {
   @Update("UPDATE category SET category_name=#{categoryName}, category_alias=#{categoryAlias} WHERE id=#{id}")
   void update(Integer id, String categoryName, String categoryAlias);
 
-  @Select("SELECT * from category WHERE id=#{id}")
+  @Select("SELECT * FROM category WHERE id=#{id}")
   Category findCategoryById(Integer id);
-  @Delete("Delete category WHERE id=#{id}")
+  @Delete("DELETE FROM category WHERE id=#{id}")
   void delete(Integer id);
 }

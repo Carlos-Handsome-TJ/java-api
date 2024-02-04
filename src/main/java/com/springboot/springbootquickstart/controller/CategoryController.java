@@ -66,6 +66,10 @@ public class CategoryController {
   }
   @DeleteMapping("/delete")
   public Result delete(Integer id) {
+    Category category = categoryService.findCategoryById(id);
+    if (category == null) {
+      return Result.error("分类不存在");
+    }
     categoryService.delete(id);
     return Result.success();
   }
