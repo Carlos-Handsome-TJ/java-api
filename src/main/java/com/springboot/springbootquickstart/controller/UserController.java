@@ -129,13 +129,13 @@ public class UserController {
   /**
    * 登录
    *
-   * @param username
-   * @param password
    * @return
    */
   @PostMapping("/login")
   @ResponseBody
-  public Result login(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
+  public Result login(@RequestBody @Validated Map<String, Object> params) {
+    String username = (String) params.get("username");
+    String password = (String) params.get("password");
     User user = userService.findByUserName(username);
     if (user == null) {
       return Result.error("用户不存在");
