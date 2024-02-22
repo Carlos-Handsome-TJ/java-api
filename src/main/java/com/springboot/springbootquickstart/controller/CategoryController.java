@@ -51,7 +51,7 @@ public class CategoryController {
    * @return
    */
   @PostMapping("/add")
-  public Result add(@RequestBody @Validated Category category) {
+  public Result add(@RequestBody @Validated(Category.Add.class) Category category) {
     String categoryName = category.getCategoryName();
     String categoryAlias = category.getCategoryAlias();
     // 校验分类是否已存在
@@ -64,6 +64,7 @@ public class CategoryController {
     categoryService.add(id, categoryName, categoryAlias);
     return Result.success();
   }
+
   @DeleteMapping("/delete")
   public Result delete(Integer id) {
     Category category = categoryService.findCategoryById(id);
@@ -73,6 +74,7 @@ public class CategoryController {
     categoryService.delete(id);
     return Result.success();
   }
+
   /**
    * 更新分类信息
    *
@@ -80,15 +82,15 @@ public class CategoryController {
    * @return
    */
   @PutMapping("/update")
-  public Result update(@RequestBody @Validated Map<String, Object> params) {
-    Integer id = (Integer) params.get("id");
-    String categoryName = (String) params.get("categoryName");
-    String categoryAlias = (String) params.get("categoryAlias");
-    Category category = categoryService.findCategoryById(id);
-    if (category == null) {
+  public Result update(@RequestBody @Validated(Category.Update.class) Category category) {
+    Integer id = category.getId();
+    String categoryName =  category.getCategoryName();
+    String categoryAlias =  category.getCategoryAlias();
+    Category updateCategory = categoryService.findCategoryById(id);
+    if (updateCategory == null) {
       return Result.error("分类不存在");
     }
-    if (category.getCategoryName().equals(categoryName)) {
+    if (updateCategory.getCategoryName().equals(categoryName)) {
       return Result.error("分类名未更改");
     }
     categoryService.update(id, categoryName, categoryAlias);
