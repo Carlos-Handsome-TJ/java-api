@@ -101,7 +101,7 @@ public class UserController {
       // 前端校验新密码和二次输入密码是否一致
       return Result.error("两次密码不一致");
     }
-    userService.updatePwd(id, new_pwd);
+    userService.updatePwd(id, Md5Util.getMD5String(new_pwd));
     return Result.success();
   }
 
@@ -129,8 +129,6 @@ public class UserController {
   /**
    * 登录
    *
-   * @param username
-   * @param password
    * @return
    */
   @PostMapping("/login")

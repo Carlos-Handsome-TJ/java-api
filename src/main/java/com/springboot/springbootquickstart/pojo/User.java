@@ -1,10 +1,8 @@
 package com.springboot.springbootquickstart.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,17 +12,18 @@ import java.time.LocalDateTime;
 public class User {
   @NotNull
   private Integer id;
-  @NotEmpty
+  @NotBlank(message = "用户名不能为空")
   private String username;
   @JsonIgnore
   private String password;
   @Pattern(regexp = "^\\S{5,16}$")
   private String nickname;
-  @NotEmpty
+  @NotBlank(message = "email不能为空")
   @Email
   private String email;
   private String userPic;
+  @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
   private LocalDateTime createTime;
+  @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss")
   private LocalDateTime updateTime;
-
 }
