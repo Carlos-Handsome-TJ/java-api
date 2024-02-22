@@ -33,7 +33,7 @@ public class ArticleController {
   }
   @PostMapping("/add")
   @ResponseBody
-  public Result add(@RequestBody @Validated Article article) {
+  public Result add(@RequestBody @Validated(Article.Add.class) Article article) {
     articleService.add(article);
     return Result.success();
   }
@@ -45,6 +45,17 @@ public class ArticleController {
       return Result.error("不存在该文章");
     }
     articleService.delete(id);
+    return Result.success();
+  }
+  @PutMapping("/update")
+  @ResponseBody
+  public Result update(@RequestBody @Validated(Article.Update.class) Article article) {
+    Integer id = article.getId();
+    Article updateArticle = articleService.findById(id);
+    if (updateArticle == null) {
+      return Result.error("不存在该文章");
+    }
+    articleService.update(article);
     return Result.success();
   }
 }

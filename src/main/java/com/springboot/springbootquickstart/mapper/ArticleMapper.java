@@ -1,10 +1,7 @@
 package com.springboot.springbootquickstart.mapper;
 
 import com.springboot.springbootquickstart.pojo.Article;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface ArticleMapper {
@@ -14,4 +11,6 @@ public interface ArticleMapper {
   void delete(Integer id);
   @Select("SELECT * FROM article WHERE id=#{id}")
   Article findById(Integer id);
+  @Update("UPDATE article SET title=#{title}, content=#{content}, cover_img=#{coverImg}, state=#{state}, category_id=#{categoryId} WHERE id=#{id}")
+  void update(Article article);
 }

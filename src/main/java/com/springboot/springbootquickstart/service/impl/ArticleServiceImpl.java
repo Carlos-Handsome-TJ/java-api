@@ -23,7 +23,6 @@ public class ArticleServiceImpl implements ArticleService {
     Map<String, Object> map = ThreadLocalUtil.get();
     Integer id = (Integer) map.get("id");
     article.setId(id);
-
     articleMapper.add(article);
   }
 
@@ -36,5 +35,11 @@ public class ArticleServiceImpl implements ArticleService {
   public Article findById(Integer id) {
     Article article = articleMapper.findById(id);
     return article;
+  }
+
+  @Override
+  public void update(Article article) {
+    article.setUpdateTime(LocalDateTime.now());
+    articleMapper.update(article);
   }
 }

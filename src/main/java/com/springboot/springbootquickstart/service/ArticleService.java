@@ -8,4 +8,6 @@ public interface ArticleService {
   void delete(Integer id);
 
   Article findById(Integer id);
+
+  void update(Article article);
 }

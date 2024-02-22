@@ -2,6 +2,7 @@ package com.springboot.springbootquickstart.pojo;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 // Article实体类
 @Data
 public class Article {
+  @NotNull(message = "文章id不能为空", groups = {Update.class})
   private Integer id;
   @NotNull(message = "文章标题不能为空")
   private String title;
@@ -25,5 +27,9 @@ public class Article {
   private LocalDateTime createTime;
   private LocalDateTime updateTime;
 
-  public interface add {}
+  public interface Add extends Default {
+  }
+
+  public interface Update extends Default {
+  }
 }
