@@ -1,8 +1,9 @@
 package com.springboot.springbootquickstart.controller;
 
 import com.springboot.springbootquickstart.pojo.Result;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 @RestController
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
   @PostMapping("/list")
   @ResponseBody
-  public Result<String> list(@NotNull Integer pageNum, @NotNull Integer pageSize) {
+  public Result<String> list(@RequestBody Map<String, Object> params) {
     // 验证token
     return Result.success("文章获取成功");
   }
