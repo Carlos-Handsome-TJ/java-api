@@ -78,7 +78,6 @@ public class CategoryController {
   /**
    * 更新分类信息
    *
-   * @param params
    * @return
    */
   @PutMapping("/update")

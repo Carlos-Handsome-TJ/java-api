@@ -1,6 +1,7 @@
 package com.springboot.springbootquickstart.pojo;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,17 +10,20 @@ import java.time.LocalDateTime;
 @Data
 public class Article {
   private Integer id;
-  @NotEmpty(message = "文章标题不能为空")
+  @NotNull(message = "文章标题不能为空")
   private String title;
-  @NotEmpty(message = "文章内容不能为空")
+  @NotNull(message = "文章内容不能为空")
   private String content;
-  @NotEmpty(message = "文章封面不能为空")
+  @NotNull(message = "文章封面不能为空")
   private String coverImg;
-  @NotEmpty(message = "发布状态不能为空")
+  @NotNull(message = "发布状态不能为空")
   private String state;
-  @NotEmpty(message = "文章分类不能为空")
+  @NotNull(message = "文章分类不能为空")
   private Integer categoryId;
+  @NotNull(message = "创建用户不能为空")
   private Integer createUser;
   private LocalDateTime createTime;
   private LocalDateTime updateTime;
+
+  public interface add {}
 }
