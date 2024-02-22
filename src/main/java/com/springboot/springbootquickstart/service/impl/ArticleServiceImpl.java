@@ -14,6 +14,7 @@ import java.util.Map;
 public class ArticleServiceImpl implements ArticleService {
   @Resource
   private ArticleMapper articleMapper;
+
   @Override
   public void add(Article article) {
     // 补充性质
@@ -24,5 +25,16 @@ public class ArticleServiceImpl implements ArticleService {
     article.setId(id);
 
     articleMapper.add(article);
+  }
+
+  @Override
+  public void delete(Integer id) {
+    articleMapper.delete(id);
+  }
+
+  @Override
+  public Article findById(Integer id) {
+    Article article = articleMapper.findById(id);
+    return article;
   }
 }

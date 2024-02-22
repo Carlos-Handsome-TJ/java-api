@@ -17,6 +17,11 @@ public interface CategoryMapper {
   @Select("SELECT * FROM category WHERE create_user=#{id}")
   List<Category> list(Integer id);
 
+
+
+
+
+
   @Update("UPDATE category SET category_name=#{categoryName}, category_alias=#{categoryAlias} WHERE id=#{id}")
   void update(Integer id, String categoryName, String categoryAlias);
 

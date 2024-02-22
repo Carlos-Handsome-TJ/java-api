@@ -22,10 +22,29 @@ public class ArticleController {
     return Result.success("文章获取成功");
   }
 
+  @GetMapping("/findById")
+  @ResponseBody
+  public Result findById(Integer id) {
+    Article article = articleService.findById(id);
+    if (article == null) {
+      return Result.error("不存在该文章");
+    }
+    return Result.success(article);
+  }
   @PostMapping("/add")
   @ResponseBody
   public Result add(@RequestBody @Validated Article article) {
     articleService.add(article);
+    return Result.success();
+  }
+  @DeleteMapping("/delete")
+  @ResponseBody
+  public Result delete(Integer id) {
+    Article article = articleService.findById(id);
+    if (article == null) {
+      return Result.error("不存在该文章");
+    }
+    articleService.delete(id);
     return Result.success();
   }
 }
