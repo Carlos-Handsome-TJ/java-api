@@ -1,7 +1,10 @@
 package com.springboot.blog.mapper;
 
 import com.springboot.blog.pojo.Article;
+import com.springboot.blog.pojo.PageBean;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface ArticleMapper {
@@ -13,4 +16,6 @@ public interface ArticleMapper {
   Article findById(Integer id);
   @Update("UPDATE article SET title=#{title}, content=#{content}, cover_img=#{coverImg}, state=#{state}, category_id=#{categoryId} WHERE id=#{id}")
   void update(Article article);
+
+  List<Article> list(Integer categoryId, Integer state);
 }

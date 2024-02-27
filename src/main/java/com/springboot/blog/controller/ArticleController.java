@@ -1,6 +1,7 @@
 package com.springboot.blog.controller;
 
 import com.springboot.blog.pojo.Article;
+import com.springboot.blog.pojo.PageBean;
 import com.springboot.blog.pojo.Result;
 import com.springboot.blog.service.ArticleService;
 import jakarta.annotation.Resource;
@@ -16,11 +17,12 @@ public class ArticleController {
   @Resource
   private ArticleService articleService;
 
-  @PostMapping("/list")
+  @GetMapping("/list")
   @ResponseBody
-  public Result<String> list(Map<String, Object> params) {
-    // 验证token
-    return Result.success("文章获取成功");
+  public Result<PageBean<Article>> list(Integer pageNum, Integer pageSize, @RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer state) {
+    // 分页查询
+    PageBean pageList =  articleService.list(pageNum, pageSize, categoryId, state);
+    return Result.success(pageList);
   }
 
   @GetMapping("/findById")
@@ -32,12 +34,14 @@ public class ArticleController {
     }
     return Result.success(article);
   }
+
   @PostMapping("/add")
   @ResponseBody
   public Result add(@RequestBody @Validated(Article.Add.class) Article article) {
     articleService.add(article);
     return Result.success();
   }
+
   @DeleteMapping("/delete")
   @ResponseBody
   public Result delete(Integer id) {
@@ -48,6 +52,7 @@ public class ArticleController {
     articleService.delete(id);
     return Result.success();
   }
+
   @PutMapping("/update")
   @ResponseBody
   public Result update(@RequestBody @Validated(Article.Update.class) Article article) {

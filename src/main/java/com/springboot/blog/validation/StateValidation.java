@@ -15,7 +15,6 @@ public class StateValidation implements ConstraintValidator<State, Integer> {
   public boolean isValid(Integer value, ConstraintValidatorContext context) {
     // 校验规则
     if (value == null) return false;
-    if (value == 0 || value == 1) return true;
-    return false;
+    return value == 0 || value == 1;
   }
 }
