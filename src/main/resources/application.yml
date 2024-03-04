@@ -6,10 +6,29 @@ spring:
     password: 45138k9%
   servlet:
     multipart:
-      max-file-size: 500MB
+      max-file-size: 500MB # 最大上传文件
+  freemarker: # websocket配置
+    request-context-attribute: request
+    prefix: /template/
+    suffix: .html
+    content-type: text/html
+    enabled: true
+    cache: false
+    allow-request-override: false
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
 mybatis:
   configuration:
     map-underscore-to-camel-case: on # 开启下划线驼峰命名
-
 server:
   port: 8001
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+    context-path: /socket
+# login config
+#logging:
+#  level:
+#    com.springboot.blog.log
