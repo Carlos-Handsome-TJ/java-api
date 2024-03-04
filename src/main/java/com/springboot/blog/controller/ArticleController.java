@@ -8,8 +8,6 @@ import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 
 @RestController
 @RequestMapping("/article")
@@ -21,7 +19,7 @@ public class ArticleController {
   @ResponseBody
   public Result<PageBean<Article>> list(Integer pageNum, Integer pageSize, @RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer state) {
     // 分页查询
-    PageBean pageList =  articleService.list(pageNum, pageSize, categoryId, state);
+    PageBean pageList = articleService.list(pageNum, pageSize, categoryId, state);
     return Result.success(pageList);
   }
 

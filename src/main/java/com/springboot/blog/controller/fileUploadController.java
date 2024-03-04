@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @RestController
-public class fileUpLoadController {
+public class fileUploadController {
   @PostMapping("/upload")
   public Result<String> upload(MultipartFile file) throws Exception {
     // 获取文件内容的输入流，写入到本地磁盘中
